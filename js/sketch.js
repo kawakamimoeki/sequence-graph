@@ -1,12 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 
-nodeDatas = [
-  { label: '太郎', x: 400, y: 200 },
-  { label: '花子', x: 800, y: 400 },
-  { label: 'よしお', x: 300, y: 400 },
-  { label: 'しずよ', x: 700, y: 600 }
-]
+nodeDatas = ['太郎', 'よしお', 'しずよ', '花子', 'たける']
 eventDatas = [
   { type: 'action', label: '花子への気持ち高まる', node: '太郎', order: 1 },
   { type: 'arrow', label: '告白', origin: '太郎', dist: '花子', order: 2 },
@@ -27,7 +22,11 @@ function setup () {
   nodes = []
   arrows = []
   actions = []
-  nodeDatas.forEach((node) => nodes.push(new Node(node.x, node.y, node.label)))
+  nodeDatas.forEach((node, index) => {
+    const x = width / 2 - 200 * cos(2 * PI * index / (nodeDatas.length))
+    const y = height / 2 - 200 * sin(2 * PI * index / (nodeDatas.length))
+    nodes.push(new Node(x, y, node))
+  })
   eventDatas.forEach((event) => {
     if (event.type === 'arrow') {
       const origin = nodes.find((node) => node.label === event.origin)
